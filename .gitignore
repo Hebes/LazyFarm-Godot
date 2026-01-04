@@ -1,0 +1,7 @@
+# Godot 4+ specific ignores
+.godot/
+exports.cfg
+export_presets.cfg
+*.translation
+*.tmp
+assets/imgui-godot/bin/*
