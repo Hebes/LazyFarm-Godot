@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://dccpiv6pldvln"]
+
+[ext_resource type="Script" uid="uid://tlp3u1vruy0j" path="res://Component/Camera2D/Camera.gd" id="1_d5smx"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_3xjr7"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_5s3ua"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_1ws2m"]
+
+[sub_resource type="Resource" id="Resource_hov03"]
+script = ExtResource("4_1ws2m")
+
+[node name="Camera" type="Node2D" node_paths=PackedStringArray("camera2d", "phantom_camera2D")]
+script = ExtResource("1_d5smx")
+camera2d = NodePath("Camera2D")
+phantom_camera2D = NodePath("PhantomCamera2D")
+metadata/_custom_type_script = "uid://tlp3u1vruy0j"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("2_3xjr7")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+top_level = true
+script = ExtResource("3_5s3ua")
+follow_mode = 5
+follow_target = NodePath("")
+tween_resource = SubResource("Resource_hov03")
+tween_on_load = false
+follow_damping = true
+dead_zone_width = 0.3
+dead_zone_height = 0.3
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"

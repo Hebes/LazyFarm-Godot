@@ -1,0 +1,94 @@
+[gd_scene load_steps=8 format=3 uid="uid://dycy4fvw4ve0m"]
+
+[ext_resource type="Script" uid="uid://byq6fi7ukytih" path="res://Manager/Loading/loading_manager.gd" id="1_mjn2d"]
+[ext_resource type="Shader" uid="uid://bmo4xc45s202c" path="res://Shaders/PixelTransition.gdshader" id="2_hhwxh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jniu4"]
+shader = ExtResource("2_hhwxh")
+shader_parameter/is_active = false
+shader_parameter/progress = 1.0
+shader_parameter/transition_color = Color(0.12941177, 0.12941177, 0.12941177, 1)
+shader_parameter/clear_color = Color(0, 0, 0, 0)
+shader_parameter/edge_color = Color(0, 0.643376, 0.702895, 1)
+shader_parameter/edge_width = 0.0210000009975
+shader_parameter/pixel_size = 300.0000142025
+shader_parameter/noise_strength = 0.10000000475
+shader_parameter/center_point = Vector2(0.5, 0.5)
+shader_parameter/screen_size = Vector2(16, 9)
+
+[sub_resource type="Animation" id="Animation_dv474"]
+resource_name = "Enter"
+length = 0.7
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Loading:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [1.0, 0.2000000095, 0.10000000475, 0.10000000475, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_c1vgq"]
+resource_name = "Level"
+length = 0.7
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Loading:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.5, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.10000000475, 0.10000000475, 0.2000000095, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_aeylg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Loading:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ix7fk"]
+_data = {
+&"Enter": SubResource("Animation_dv474"),
+&"Leave": SubResource("Animation_c1vgq"),
+&"RESET": SubResource("Animation_aeylg")
+}
+
+[node name="LoadingManager" type="Node" node_paths=PackedStringArray("loading", "animation_player")]
+process_mode = 3
+script = ExtResource("1_mjn2d")
+loading = NodePath("CanvasLayer/Loading")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Loading" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_jniu4")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_ix7fk")
+}

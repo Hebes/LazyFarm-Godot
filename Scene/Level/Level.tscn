@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://o6sj7p0xll4e"]
+
+[node name="Level" type="Node2D"]
+
+[node name="TileMapLayerContainer" type="Node2D" parent="."]
+z_as_relative = false
