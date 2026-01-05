@@ -15,6 +15,7 @@ phantom_camera2D = NodePath("PhantomCamera2D")
 metadata/_custom_type_script = "uid://tlp3u1vruy0j"
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.8, 0.8)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D"]
 process_priority = 300
@@ -22,14 +23,14 @@ process_physics_priority = 300
 script = ExtResource("2_3xjr7")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
-[node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+[node name="PhantomCamera2D" type="Node2D" parent="."]
 top_level = true
 script = ExtResource("3_5s3ua")
 follow_mode = 5
-follow_target = NodePath("")
+zoom = Vector2(0.8, 0.8)
 tween_resource = SubResource("Resource_hov03")
 tween_on_load = false
 follow_damping = true
-dead_zone_width = 0.3
-dead_zone_height = 0.3
+dead_zone_width = 0.116
+dead_zone_height = 0.16
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"

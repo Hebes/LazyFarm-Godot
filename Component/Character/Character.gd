@@ -50,10 +50,10 @@ func get_input_values():
 
 func _physics_process(delta):
     movement()
-    #set_action_state()
-    #set_face_direction()
-    #set_movement_state()
-    #transform_graphics_scale()
+    set_action_state()
+    set_face_direction()
+    set_movement_state()
+    transform_graphics_scale()
     #update_lift_visible()
     move_and_slide()
     
@@ -89,11 +89,11 @@ enum ActionState {
 }
 
 const ACTION_STATE = {
-    ActionState.Default: 'default',
-    ActionState.Lift: 'lift',
-    ActionState.FishingWait: 'fishing_wait',
-    ActionState.FishingHooked: 'fishing_hooked',
-    ActionState.Steed: 'steed',
+    ActionState.Default: 'Default',
+    ActionState.Lift: 'Lift',
+    ActionState.FishingWait: 'Fishing_wait',
+    ActionState.FishingHooked: 'Fishing_hooked',
+    ActionState.Steed: 'Steed',
 }
 
 enum MovementState {
@@ -103,9 +103,9 @@ enum MovementState {
 }
 
 const MOVEMENT_STATE = {
-    MovementState.Idle: 'idle',
-    MovementState.Walk: 'walk',
-    MovementState.Run: 'run'
+    MovementState.Idle: 'Idle',
+    MovementState.Walk: 'Walk',
+    MovementState.Run: 'Run'
 }
 
 ## 面向方向
@@ -116,9 +116,9 @@ enum FaceDirection {
 }
 
 const FACE_DIRECTION = {
-    FaceDirection.Forward: 'forward',
-    FaceDirection.Backward: 'backward',
-    FaceDirection.Parallel: 'parallel'
+    FaceDirection.Forward: 'Forward',
+    FaceDirection.Backward: 'Backward',
+    FaceDirection.Parallel: 'Parallel'
 }
 
 enum OneShotState {
@@ -147,23 +147,26 @@ const ONESHOT_STATE = {
     OneShotState.Petting: 'petting',
 }
 
-var current_action_state: ActionState = ActionState.Default
-var current_face_direction: FaceDirection = FaceDirection.Forward
-var current_movement_state: MovementState = MovementState.Idle
+var current_action_state: ActionState = ActionState.Default ## 当前行动状态
+var current_face_direction: FaceDirection = FaceDirection.Forward ## 当前朝向
+var current_movement_state: MovementState = MovementState.Idle ## 当前移动状态
 
 func movement():
     velocity = direction * (walk_speed if !is_run else run_speed) * 40
-    print("当前移动速度是" + str(velocity))
+    #print("当前移动速度是" + str(velocity))
     #if current_action_state == ActionState.Steed:
         #velocity = direction * (walk_speed if !is_run else run_speed) * 80
     #else:
         #velocity = direction * (walk_speed if !is_run else run_speed) * 40
 
-#func transform_graphics_scale():
-    #if !is_zero_approx(direction.x):
-        #graphics.scale.x = 1.0 if direction.x > 0.0 else -1.0
-#
-#func set_action_state():
+## 角色反转
+func transform_graphics_scale():
+    if !is_zero_approx(direction.x):
+        graphics.scale.x = 1.0 if direction.x > 0.0 else -1.0
+
+## 设置行动状态
+func set_action_state():
+    current_action_state = ActionState.Default
     #if current_action_state == ActionState.OneShot:
         #return
     #if is_fishing:
@@ -177,27 +180,29 @@ func movement():
         #current_action_state = ActionState.Lift
     #else:
         #current_action_state = ActionState.Default
-#
-#func set_face_direction():
-    #if !direction.is_zero_approx():
-        #if !is_zero_approx(direction.x):
-            #current_face_direction = FaceDirection.Parallel
-        #else:
-            #current_face_direction = FaceDirection.Forward if direction.y > 0.0 else FaceDirection.Backward
-#
-#func set_movement_state():
-    #if direction.is_zero_approx():
+
+## 当前朝向
+func set_face_direction():
+    if !direction.is_zero_approx():
+        if !is_zero_approx(direction.x):
+            current_face_direction = FaceDirection.Parallel
+        else:
+            current_face_direction = FaceDirection.Forward if direction.y > 0.0 else FaceDirection.Backward
+
+## 移动方式
+func set_movement_state():
+    if direction.is_zero_approx():
         #if current_movement_state != MovementState.Idle:
             #SoundManager.stop_grade(SoundManager.AudioGrade.Footsteps)
-        #current_movement_state = MovementState.Idle
-    #else:
-        #current_movement_state = MovementState.Run if is_run else MovementState.Walk
-#
+        current_movement_state = MovementState.Idle
+    else:
+        current_movement_state = MovementState.Run if is_run else MovementState.Walk
+
 #func update_face_direction(p1: Vector2):
     #current_face_direction = UtilsManager.get_direction_from_position(p1, global_position)
     #if current_face_direction == FaceDirection.Parallel:
         #graphics.scale.x = 1.0 if p1.x > global_position.x else -1.0
-#
+
 #func update_position_to_center():
     #var center_position = UtilsManager.transform_position_tile(global_position) + Vector2i(8, 8)
     #global_position = center_position

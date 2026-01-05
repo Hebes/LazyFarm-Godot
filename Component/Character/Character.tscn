@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://3nysflejsji3"]
+[gd_scene load_steps=25 format=3 uid="uid://3nysflejsji3"]
 
 [ext_resource type="Script" uid="uid://b16vs7uytwowk" path="res://Component/Character/Character.gd" id="1_g4aqm"]
 [ext_resource type="Texture2D" uid="uid://bk253pxhefcnm" path="res://Sprite/Character/Josh/Idle/Idle_forward.atlastex" id="2_ow5xp"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dbh1qdxtthpy8" path="res://Sprite/Character/Josh/Run/Run_backward.atlastex" id="9_f1t40"]
 [ext_resource type="Texture2D" uid="uid://5qqxnw5qe1oi" path="res://Sprite/Character/Josh/Run/Run_paraller.atlastex" id="10_c738b"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://vs0rgyx7gl2e" path="res://Sprite/Character/Josh/JoshCharacter.tres" id="11_id1ju"]
+[ext_resource type="PackedScene" uid="uid://db0naotih4bvt" path="res://Component/Character/Children/AnimationState.tscn" id="12_brwyb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gd5wf"]
 size = Vector2(6, 3)
@@ -446,10 +447,11 @@ _data = {
 &"Walk_paraller": SubResource("Animation_0j84b")
 }
 
-[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("graphics", "sprite")]
+[node name="Character" type="CharacterBody2D" node_paths=PackedStringArray("animation_tree", "graphics", "sprite")]
 z_index = 400
 z_as_relative = false
 script = ExtResource("1_g4aqm")
+animation_tree = NodePath("AnimationTree")
 graphics = NodePath("Graphics")
 sprite = NodePath("Graphics/Sprite2D")
 metadata/_custom_type_script = "uid://b16vs7uytwowk"
@@ -473,8 +475,10 @@ libraries = {
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = ExtResource("11_id1ju")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Movement_state/blend_position = 0.0065963063
-parameters/Movement_state/0/Blend3/blend_amount = 0.0
+parameters/Movement_state/blend_position = 0.0
+parameters/Movement_state/0/Default/blend_amount = 0.0
 parameters/Movement_state/0/Idle/blend_amount = 0.0
-"parameters/Movement_state/0/Walk /blend_amount" = 0.0
+parameters/Movement_state/0/Walk/blend_amount = -0.4
 parameters/Movement_state/0/Run/blend_amount = 0.0
+
+[node name="AnimationState" parent="." instance=ExtResource("12_brwyb")]
