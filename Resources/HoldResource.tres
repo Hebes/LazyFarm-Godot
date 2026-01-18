@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="HoldResource" load_steps=5 format=3 uid="uid://b6lc7t0qitf4v"]
+
+[ext_resource type="Resource" uid="uid://d4hcoiob0tasn" path="res://Resources/Inventory/Weapon/Hoe.tres" id="1_0n3l5"]
+[ext_resource type="Resource" uid="uid://bmad6mxl4ffo" path="res://Resources/Inventory/Seed/PhotoSeed.tres" id="1_jqhqv"]
+[ext_resource type="Script" uid="uid://buxdy7rlmls7d" path="res://Structs/HoldResource.gd" id="1_x12gr"]
+[ext_resource type="Resource" uid="uid://0a3jhcsc70mx" path="res://Resources/Inventory/Crop/Photo.tres" id="2_lo1x6"]
+
+[resource]
+script = ExtResource("1_x12gr")
+hold_inventory = Array[Dictionary]([{
+"Count": 24,
+"Inventory": ExtResource("1_jqhqv")
+}, {
+"Count": 9999,
+"Inventory": ExtResource("2_lo1x6")
+}, {
+"Count": 1,
+"Inventory": ExtResource("1_0n3l5")
+}, {
+"Count": 1,
+"Inventory": ExtResource("1_0n3l5")
+}, {}, {}, {}, {}, {}])
+metadata/_custom_type_script = "uid://buxdy7rlmls7d"

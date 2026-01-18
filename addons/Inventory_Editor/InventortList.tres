@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="InventoryList" load_steps=7 format=3 uid="uid://cxesm7obsf37i"]
+
+[ext_resource type="Script" uid="uid://dlwsprxeakhde" path="res://Structs/Inventory.gd" id="1_fswqg"]
+[ext_resource type="Resource" uid="uid://d4hcoiob0tasn" path="res://Resources/Inventory/Weapon/Hoe.tres" id="2_7fnh8"]
+[ext_resource type="Script" uid="uid://dlecvavq2an43" path="res://addons/Inventory_Editor/Inventort_list.gd" id="2_dm045"]
+[ext_resource type="Resource" uid="uid://bmad6mxl4ffo" path="res://Resources/Inventory/Seed/PhotoSeed.tres" id="2_dvpas"]
+[ext_resource type="Resource" uid="uid://0a3jhcsc70mx" path="res://Resources/Inventory/Crop/Photo.tres" id="2_q5mtw"]
+
+[sub_resource type="Resource" id="Resource_o7gw0"]
+script = ExtResource("1_fswqg")
+
+[resource]
+script = ExtResource("2_dm045")
+list = Array[ExtResource("1_fswqg")]([ExtResource("2_dvpas"), SubResource("Resource_o7gw0"), ExtResource("2_q5mtw"), ExtResource("2_7fnh8")])
+metadata/_custom_type_script = "uid://dlecvavq2an43"

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BagResource" load_steps=2 format=3 uid="uid://dysggrtlqdm7d"]
+
+[ext_resource type="Script" uid="uid://b0agwyf6muno5" path="res://Structs/BagResource.gd" id="1_m3uof"]
+
+[resource]
+script = ExtResource("1_m3uof")
+bag_inventory = Array[Dictionary]([{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}])
+metadata/_custom_type_script = "uid://b0agwyf6muno5"

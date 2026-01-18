@@ -13,7 +13,7 @@ signal level_loaded
 
 @export var character: Character ## 角色
 @export var camera : Camera ## 摄像机
-#@export var inventory_info_popup: InventoryInfoPopup
+@export var inventory_info_popup: InventoryInfoPopup ## 物品信息显示
 #@export var time_record: TimeRecord
 #@export var game_resource: GameResource
 #@export var global_light: GlobalLight
@@ -84,15 +84,13 @@ func Load_Level(level: LevelType):
                 print("加载进度: %f" % process)
         )
     
-    var position := Vector2(0.5,0.5)
     if current_level_instance:
-        #var position := UtilsManager.get_screen_position(character.graphics).position
-        LoadingManager.Enter(position, false, func():
-                load_need_level.call(func():LoadingManager.Leave(position))
+        LoadingManager.Enter(UtilsManager.get_screen_position(character.graphics).position, false, func():
+                load_need_level.call(func():LoadingManager.Leave(UtilsManager.get_screen_position(character.graphics).position))
         )
     else:
         LoadingManager.enter_force()
-        load_need_level.call( func():LoadingManager.Leave(position))
+        load_need_level.call( func():LoadingManager.Leave(UtilsManager.get_screen_position(character.graphics).position))
                 
 
 ## 切换季节
@@ -107,11 +105,9 @@ func Switch_Season(season: Season) -> void:
         var season_tileset_resource: Resource = ResourceManager.Load_resource("res://Sprite/TileSet/%s/%s.tres" % [SEASON[season],SEASON[season]])
         for layer in tile_map_layers:
             layer.tile_set = season_tileset_resource
-     #var position := UtilsManager.get_screen_position(character.graphics).position
-    var position := Vector2(0.5,0.5)
-    LoadingManager.Enter(position, false, func():
+    LoadingManager.Enter(UtilsManager.get_screen_position(character.graphics).position, false, func():
         switch.call()
-        LoadingManager.Leave(position))
+        LoadingManager.Leave(UtilsManager.get_screen_position(character.graphics).position))
 
 ## 测试切换季节
 func _process(_delta: float) -> void:
@@ -128,4 +124,36 @@ func _process(_delta: float) -> void:
     if ImGui.Button("Winter"):
       Switch_Season(Season.Winter)
       pass
+    if ImGui.Button("Pickable"):
+        var pickable: Pickable = ResourceManager.Load_resource("res://Component/Pickable/Pickable.tscn").instantiate()
+        pickable.inventory = ResourceManager.Load_resource("res://Resources/Inventory/Weapon/Hoe.tres")
+        add_child(pickable)
+    if ImGui.Button("AddFellableTree"):
+        GameManager.game.current_level_instance.level_resource.fellable_tree_exist_resource.trees.push_back({
+            "fellable_tree": load("res://resources/fellable_tree/maple/maple.tres"),
+            "axe_count": 0,
+            "position": UtilsManager.transform_position_tile(GameManager.game.character.global_position)
+        })
+    if ImGui.Button("fish"):
+        GameManager.game.character.is_hooked = true
+    #if ImGui.Button("speaker"):
+        #Dialogic.start("begin_speaker")
+    #if ImGui.Button("bubble"):
+        #var layout = Dialogic.Styles.change_style("bubble", true, true)
+        #layout.register_character("res://dialogic/character/character_bubble.dch", GameManager.game.character)
+        #Dialogic.start("begin_bubble")
+    if ImGui.Button("shake"):
+        GameManager.game.camera.shake()
+    if ImGui.Button("5:55"):
+        GameManager.game.game_resource.hour = 5
+        GameManager.game.game_resource.minute = 55
+    if ImGui.Button("8:55"):
+        GameManager.game.game_resource.hour = 8
+        GameManager.game.game_resource.minute = 55
+    if ImGui.Button("17:55"):
+        GameManager.game.game_resource.hour = 17
+        GameManager.game.game_resource.minute = 55
+    if ImGui.Button("20:55"):
+        GameManager.game.game_resource.hour = 20
+        GameManager.game.game_resource.minute = 55
     ImGui.End()

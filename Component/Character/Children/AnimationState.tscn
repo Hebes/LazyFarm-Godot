@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://db0naotih4bvt"]
-
-[ext_resource type="Script" uid="uid://q8k0u2g3tpik" path="res://Component/Character/Children/Animation_state.gd" id="1_pj61p"]
-
-[node name="AnimationState" type="Node2D"]
-script = ExtResource("1_pj61p")
-metadata/_custom_type_script = "uid://q8k0u2g3tpik"

@@ -1,15 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://dsymr0mdri5pm"]
+[gd_scene load_steps=5 format=3 uid="uid://dsymr0mdri5pm"]
 
 [ext_resource type="Script" uid="uid://22klvafjxvq5" path="res://Scene/Level/Game/Game.gd" id="1_xb2vu"]
 [ext_resource type="PackedScene" uid="uid://dccpiv6pldvln" path="res://Component/Camera2D/Camera.tscn" id="2_r2k5x"]
 [ext_resource type="PackedScene" uid="uid://3nysflejsji3" path="res://Component/Character/Character.tscn" id="3_t45to"]
+[ext_resource type="PackedScene" uid="uid://dnt8uwblmnec2" path="res://Component/InventoryInfoPopup/InventoryInfoPopup.tscn" id="4_daa20"]
 
-[node name="Game" type="Node2D" node_paths=PackedStringArray("character", "camera")]
+[node name="Game" type="Node2D" node_paths=PackedStringArray("character", "camera", "inventory_info_popup")]
 script = ExtResource("1_xb2vu")
 character = NodePath("Character")
 camera = NodePath("Camera")
+inventory_info_popup = NodePath("InventoryInfoPopup")
 metadata/_custom_type_script = "uid://22klvafjxvq5"
 
 [node name="Camera" parent="." instance=ExtResource("2_r2k5x")]
 
 [node name="Character" parent="." instance=ExtResource("3_t45to")]
+
+[node name="InventoryInfoPopup" parent="." instance=ExtResource("4_daa20")]

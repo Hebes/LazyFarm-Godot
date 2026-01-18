@@ -10,29 +10,34 @@ var is_run: bool = false ## 是否在奔跑
 @export var animation_tree: AnimationTree
 @export var graphics: Node2D
 @export var sprite: Sprite2D
+@export var attribute: Attribute ## 玩家屬性
 
 
-#func _ready() -> void:
+func _ready() -> void:
     #is_steed = character_resource.current_steed_type != SteedType.None
-    #listen_events()
-#
-#func _exit_tree() -> void:
-    #on_quit()
-#
-#func listen_events():
-    #GameManager.quit.connect(on_quit)
+    listen_events()
+
+func _exit_tree() -> void:
+    on_quit()
+
+func listen_events():
+    GameManager.quit.connect(on_quit)
     #Dialogic.signal_event.connect(on_dialogue_signal_event)
 
 func _process(_delta):
     get_input_values()
     #distribute_input()
 
-#func is_interfact_state():
-    #return current_action_state == ActionState.Default || current_action_state == ActionState.Lift || current_action_state == ActionState.Steed
+## 是否可移动状态
+func is_interfact_state():
+    return current_action_state == ActionState.Default || current_action_state == ActionState.Lift || current_action_state == ActionState.Steed
 
 ## 获取输入的值
 func get_input_values():
-    direction = Input.get_vector('Left', 'Right', 'Backward', 'Forward')
+    if is_interfact_state() && !LoadingManager.is_loading:
+        direction = Input.get_vector('Left', 'Right', 'Backward', 'Forward')
+    #if LoadingManager.is_loading:
+        #direction=Vector2.ZERO
     is_run = Input.is_action_pressed('Run')
     #if is_interfact_state() && !LoadingManager.is_loading && !is_dialogue && !PromptManager.is_celebrate && !UtilsManager.is_shop:
         #direction = Input.get_vector('Left', 'Right', 'Backward', 'Forward')
@@ -54,28 +59,21 @@ func _physics_process(delta):
     set_face_direction()
     set_movement_state()
     transform_graphics_scale()
-    #update_lift_visible()
+    update_lift_visible()
     move_and_slide()
-    
-#func Move_and_slide()-> void:
-
-    
 
 
+#region resource 玩家资源
+@export_group("resource 玩家资源")
+@export var character_resource: CharacterResource
 
-#region
-#@export_group("resource")
-#@export var character_resource: CharacterResource
-#
-#func on_quit():
-    #character_resource.current_hold_select = attribute.hold.current_select
-    #ResourceManager.save_resource(character_resource)
-    #
+func on_quit():
+    character_resource.current_hold_select = attribute.hold.current_select
+    ResourceManager.save_resource(character_resource)
 #endregion
 
-
 #region movement 移动
-@export_group("movement")
+@export_group("movement 移动")
 @export var walk_speed: float = 2.0
 @export var run_speed: float = 4.0
 
@@ -89,11 +87,11 @@ enum ActionState {
 }
 
 const ACTION_STATE = {
-    ActionState.Default: 'Default',
-    ActionState.Lift: 'Lift',
-    ActionState.FishingWait: 'Fishing_wait',
-    ActionState.FishingHooked: 'Fishing_hooked',
-    ActionState.Steed: 'Steed',
+    ActionState.Default: 'Default',## 默认状态
+    ActionState.Lift: ' ',## 举起状态
+    ActionState.FishingWait: 'FishingWait',## 钓鱼等待
+    ActionState.FishingHooked: 'FishingHooked',## 钓鱼上钩
+    ActionState.Steed: 'Steed',## 骑马
 }
 
 enum MovementState {
@@ -166,7 +164,7 @@ func transform_graphics_scale():
 
 ## 设置行动状态
 func set_action_state():
-    current_action_state = ActionState.Default
+    #current_action_state = ActionState.Default
     #if current_action_state == ActionState.OneShot:
         #return
     #if is_fishing:
@@ -175,11 +173,11 @@ func set_action_state():
     #if character_resource.current_steed_type != SteedType.None:
         #current_action_state = ActionState.Steed
         #return
-    #var inventory = attribute.hold.get_current_select()
-    #if inventory && inventory["lift"]:
-        #current_action_state = ActionState.Lift
-    #else:
-        #current_action_state = ActionState.Default
+    var inventory = attribute.hold.get_current_select()
+    if inventory && inventory["lift"]:
+        current_action_state = ActionState.Lift
+    else:
+        current_action_state = ActionState.Default
 
 ## 当前朝向
 func set_face_direction():
@@ -209,7 +207,6 @@ func set_movement_state():
     #velocity = Vector2.ZERO
 #
 #endregion
-
 
 #region farmland
 #
@@ -250,22 +247,16 @@ func set_movement_state():
 
 #endregion
 
-#region attribute
-#@export var attribute: Attribute
+#region lift 玩家举起
+@export_group("lift 玩家举起")
+@export var lift_sprite: Sprite2D
 
+func update_lift_visible():
+    if lift_sprite.texture:
+        lift_sprite.visible = current_action_state == ActionState.Lift
+    else:
+        lift_sprite.visible = false
 #endregion
-
-#region lift
-#@export_group("lift")
-#@export var lift_sprite: Sprite2D
-#
-#func update_lift_visible():
-    #if lift_sprite.texture:
-        #lift_sprite.visible = current_action_state == ActionState.Lift
-    #else:
-        #lift_sprite.visible = false
-#endregion
-
 
 #region interact
 #@export_group("interact")

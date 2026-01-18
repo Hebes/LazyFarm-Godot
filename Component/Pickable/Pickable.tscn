@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7rs1shlq1ni4"]
+
+[ext_resource type="Script" uid="uid://cmsgqm3b2h1np" path="res://Component/Pickable/Pickable.gd" id="1_a0v1h"]
+[ext_resource type="Resource" uid="uid://0a3jhcsc70mx" path="res://Resources/Inventory/Crop/Photo.tres" id="2_dqvr7"]
+[ext_resource type="Texture2D" uid="uid://ccduy44eyh08e" path="res://Sprite/Inventory/Photo.atlastex" id="2_hsqbp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqvr7"]
+
+[node name="Pickable" type="Area2D" node_paths=PackedStringArray("sprite")]
+script = ExtResource("1_a0v1h")
+inventory = ExtResource("2_dqvr7")
+sprite = NodePath("Sprite2D")
+metadata/_custom_type_script = "uid://cmsgqm3b2h1np"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_dqvr7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_hsqbp")

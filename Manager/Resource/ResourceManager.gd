@@ -22,5 +22,14 @@ func load_resource_async(path: String, callback: Callable,process :Callable) :
         await get_tree().process_frame
          
 
-        
+## 保存资源
+func save_resource(resource: Resource):
+    for prop in resource.get_property_list():
+        if !(prop["usage"] & PROPERTY_USAGE_SCRIPT_VARIABLE):
+            continue
+        var value = resource.get(prop["name"])
+        if !(value is Resource):
+            continue
+        ResourceSaver.save(value, value.resource_path)
     
+    ResourceSaver.save(resource, resource.resource_path)

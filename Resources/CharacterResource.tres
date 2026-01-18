@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CharacterResource" load_steps=4 format=3 uid="uid://cjrh5r0ff3ew7"]
+
+[ext_resource type="Resource" uid="uid://dysggrtlqdm7d" path="res://Resources/BagResource.tres" id="1_50cna"]
+[ext_resource type="Script" uid="uid://co74ptgt8n4nb" path="res://Structs/CharacterResource.gd" id="1_ipihh"]
+[ext_resource type="Resource" uid="uid://b6lc7t0qitf4v" path="res://Resources/HoldResource.tres" id="2_5xxta"]
+
+[resource]
+script = ExtResource("1_ipihh")
+bag = ExtResource("1_50cna")
+hold = ExtResource("2_5xxta")
+current_hold_select = 0
+metadata/_custom_type_script = "uid://co74ptgt8n4nb"

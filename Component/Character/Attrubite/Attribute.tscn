@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cw8jq86aiuc2v"]
+
+[ext_resource type="Script" uid="uid://cwworeoy4x5wr" path="res://Component/Character/Attrubite/Attribute.gd" id="1_lqfag"]
+[ext_resource type="PackedScene" uid="uid://cciqhbkr0t2ue" path="res://Component/Character/Attrubite/Children/Bag/Bag.tscn" id="2_axswi"]
+[ext_resource type="PackedScene" uid="uid://75rwav26lr0r" path="res://Component/Character/Attrubite/Children/Hold/Hold.tscn" id="3_gwvvr"]
+
+[node name="Attribute" type="CanvasLayer" node_paths=PackedStringArray("bag", "hold")]
+script = ExtResource("1_lqfag")
+bag = NodePath("Bag")
+hold = NodePath("Hold")
+metadata/_custom_type_script = "uid://cwworeoy4x5wr"
+
+[node name="Bag" parent="." instance=ExtResource("2_axswi")]
+
+[node name="Hold" parent="." instance=ExtResource("3_gwvvr")]

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Inventory" load_steps=4 format=3 uid="uid://0a3jhcsc70mx"]
+
+[ext_resource type="Script" uid="uid://dlwsprxeakhde" path="res://Structs/Inventory.gd" id="1_pihop"]
+[ext_resource type="Texture2D" uid="uid://cx0scy5pibl0x" path="res://Sprite/Inventory/PhotoHighLight.atlastex" id="1_wfxo2"]
+[ext_resource type="Texture2D" uid="uid://ccduy44eyh08e" path="res://Sprite/Inventory/Photo.atlastex" id="2_h36tk"]
+
+[resource]
+script = ExtResource("1_pihop")
+id = 100
+texture = ExtResource("2_h36tk")
+highlight_texture = ExtResource("1_wfxo2")
+name = "土豆"
+description = "生吃可能会中毒，需要煮熟了才能吃，不然需要吃药！"
+type = 7
+price = 5
+stack = true
